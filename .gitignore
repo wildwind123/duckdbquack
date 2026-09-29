@@ -1,0 +1,4 @@
+duckdbquack
+quack-client
+*.duckdb
+*.duckdb.wal
