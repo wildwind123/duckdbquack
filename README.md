@@ -12,8 +12,9 @@ QUACK_TOKEN=super_secret ./duckdbquack -db data.duckdb -listen quack:localhost:9
 
 Flags:
 - `-db`: the database file. Use `:memory:` for an in-memory database.
-- `-listen`: the Quack endpoint. Use `quack:0.0.0.0:9494` to accept remote clients.
+- `-listen`: the Quack endpoint. Use `quack:0.0.0.0:9494` with `-allow-other-hostname` to accept remote clients.
 - `-token`: the auth token. Defaults to `$QUACK_TOKEN`.
+- `-allow-other-hostname`: allow `-listen` on a hostname other than `localhost`. Off by default.
 
 On first start the server creates a demo table `hello`.
 

@@ -25,6 +25,7 @@ func main() {
 	dbPath := flag.String("db", "data.duckdb", "DuckDB database file (use ':memory:' for in-memory)")
 	listen := flag.String("listen", "quack:localhost:9494", "Quack endpoint to listen on")
 	token := flag.String("token", os.Getenv("QUACK_TOKEN"), "auth token clients must present (default $QUACK_TOKEN)")
+	allowOtherHostname := flag.Bool("allow-other-hostname", false, "allow listening on a hostname other than localhost (e.g. 0.0.0.0)")
 	flag.Parse()
 
 	if *token == "" {
@@ -54,7 +55,7 @@ func main() {
 		"INSTALL quack",
 		"LOAD quack",
 		"CREATE TABLE IF NOT EXISTS hello AS FROM VALUES ('world') v(s)",
-		fmt.Sprintf("CALL quack_serve('%s', token = '%s')", quote(*listen), quote(*token)),
+		fmt.Sprintf("CALL quack_serve('%s', token = '%s', allow_other_hostname = %t)", quote(*listen), quote(*token), *allowOtherHostname),
 	}
 	for _, s := range stmts {
 		if _, err := conn.ExecContext(ctx, s); err != nil {
